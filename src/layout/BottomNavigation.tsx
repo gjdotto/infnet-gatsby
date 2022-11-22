@@ -29,7 +29,7 @@ export function BottomNavigation() {
           display: flex;
           align-items: center;
           justify-content: space-around;
-          background-color: #fff;
+          background-color: #6ebcea;
           border-top: 1px solid #ccc;
           position: fixed;
           bottom: 0;
@@ -42,6 +42,7 @@ export function BottomNavigation() {
           display: flex;
           align-items: center;
           justify-content: center;
+          color: #fff;
         }
 
         :global(body) {
