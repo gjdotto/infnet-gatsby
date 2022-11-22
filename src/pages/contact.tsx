@@ -1,21 +1,13 @@
 import React from "react";
 import { graphql, PageProps, HeadProps } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
 import { Layout } from "../layout/Layout";
 import { ProfileHeader, ProfileHeaderProps } from "../components/ProfileHeader";
-import { Feed } from "../components/Feed";
 import { MetaHead } from "../components/MetaHead";
+import { ContactForm } from "../components/FormContato";
 
-export default function Home({ data }: PageProps) {
+export default function Contact({ data }: PageProps) {
   const profileHeaderProps = (data as any).json as ProfileHeaderProps;
-  const pagination = (data as any).allMarkdownRemark.pageInfo;
-  const items = (data as any).allMarkdownRemark.nodes.map(
-    ({ frontmatter, fields }: any) => ({
-      ...frontmatter,
-      link: `/posts/${fields.slug}`,
-      image: getImage(frontmatter.image.childImageSharp),
-    })
-  );
+
   return (
     <Layout>
       <article>
@@ -26,7 +18,7 @@ export default function Home({ data }: PageProps) {
           />
         </header>
         <section className="feed-container">
-          <Feed items={items} pagination={pagination} />
+            <ContactForm />
         </section>
       </article>
     </Layout>
@@ -44,7 +36,7 @@ export const pageQuery = graphql`
       username
     }
     allMarkdownRemark(
-      limit: 6
+      limit: 9
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       pageInfo {
@@ -66,8 +58,8 @@ export const pageQuery = graphql`
             childImageSharp {
               gatsbyImageData(
                 formats: [WEBP, JPG]
-                width: 150
-                height: 150
+                width: 200
+                height: 200
                 layout: CONSTRAINED
               )
             }

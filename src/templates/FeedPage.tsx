@@ -1,13 +1,11 @@
 import React from "react";
-import { graphql, PageProps, HeadProps } from "gatsby";
+import { PageProps, HeadProps, graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-import { Layout } from "../layout/Layout";
-import { ProfileHeader, ProfileHeaderProps } from "../components/ProfileHeader";
 import { Feed } from "../components/Feed";
+import { Layout } from "../layout/Layout";
 import { MetaHead } from "../components/MetaHead";
 
-export default function Home({ data }: PageProps) {
-  const profileHeaderProps = (data as any).json as ProfileHeaderProps;
+export default function FeedPage({ data }: PageProps) {
   const pagination = (data as any).allMarkdownRemark.pageInfo;
   const items = (data as any).allMarkdownRemark.nodes.map(
     ({ frontmatter, fields }: any) => ({
@@ -16,39 +14,41 @@ export default function Home({ data }: PageProps) {
       image: getImage(frontmatter.image.childImageSharp),
     })
   );
+
   return (
     <Layout>
-      <article>
-        <header>
-          <ProfileHeader
-            {...profileHeaderProps}
-            publishCount={(data as any).allMarkdownRemark.pageInfo.totalCount}
-          />
-        </header>
-        <section className="feed-container">
-          <Feed items={items} pagination={pagination} />
-        </section>
+      <article className="page">
+        <h2 className="title">
+          Página {pagination.currentPage} de {pagination.pageCount}
+        </h2>
+        <Feed items={items} pagination={pagination} />
+        <style jsx>{`
+          .page {
+            margin-top: 1.5em;
+          }
+          .title {
+            color: #176c9f;
+            padding-bottom: 10px;
+          }
+          @media (min-width: 960px) {
+            .page {
+              margin-top: 22px !important;
+            }
+          }
+        `}</style>
       </article>
     </Layout>
   );
 }
 
 export const pageQuery = graphql`
-  {
-    json {
-      perfil
-      bio
-      link
-      name
-      role
-      username
-    }
+  query PagePosts($skip: Int!) {
     allMarkdownRemark(
       limit: 6
+      skip: $skip
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       pageInfo {
-        totalCount
         currentPage
         pageCount
         hasNextPage
@@ -59,26 +59,33 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          author
-          date
-          title
           image {
             childImageSharp {
               gatsbyImageData(
-                formats: [WEBP, JPG]
                 width: 150
                 height: 150
                 layout: CONSTRAINED
+                formats: [JPG, WEBP]
               )
             }
           }
+          slug
+          title
+          date
         }
+        id
       }
     }
   }
 `;
 
 export const Head = ({ data }: HeadProps) => {
-  const { name, bio } = (data as any).json;
-  return <MetaHead title={`We Travel | ${name}`} description={bio} />;
+  const { currentPage, pageCount } = (data as any).allMarkdownRemark.pageInfo;
+  return (
+    <MetaHead
+      title={`WeTravel | Página ${currentPage} de ${pageCount}`}
+      description=""
+      path={`/pages/${currentPage}`}
+    />
+  );
 };
