@@ -136,7 +136,6 @@ function Pagination({
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: red;
           margin: 1em;
           width: 35px;
           height: 35px;

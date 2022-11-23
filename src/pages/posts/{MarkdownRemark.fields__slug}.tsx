@@ -14,8 +14,6 @@ export default function Post({ data }: PageProps) {
     <Layout>
       <article className="post-page">
         <PostView
-          authorAvatar={getImage(authorImage.childImageSharp)}
-          authorUsername={author}
           content={html}
           image={getImage(image.childImageSharp)}
           publishDate={new Date(date)}
@@ -38,24 +36,12 @@ export const pageQuery = graphql`
       }
       html
       frontmatter {
-        author
         date
-        title
         image {
           childImageSharp {
             gatsbyImageData(
-              width: 800
-              height: 800
-              layout: CONSTRAINED
-              formats: [WEBP, JPG]
-            )
-          }
-        }
-        authorImage {
-          childImageSharp {
-            gatsbyImageData(
-              height: 64
-              width: 64
+              width: 650
+              height: 600
               layout: CONSTRAINED
               formats: [WEBP, JPG]
             )

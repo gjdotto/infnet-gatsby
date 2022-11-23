@@ -1,19 +1,15 @@
 import React from "react";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
-import { Avatar } from "./Avatar";
+import { Perfil } from "./Perfil";
 
 export type PostView = {
   image?: IGatsbyImageData;
-  authorAvatar?: IGatsbyImageData;
-  authorUsername: string;
   content: string;
   publishDate: Date;
 };
 
 export function PostView({
   image,
-  authorAvatar,
-  authorUsername,
   content,
   publishDate,
 }: PostView) {
@@ -23,16 +19,6 @@ export function PostView({
         {image && <GatsbyImage image={image} alt="" />}
       </div>
       <div className="content-container row">
-        <header className="content-item avatar-container">
-          {authorAvatar && (
-            <Avatar
-              image={authorAvatar}
-              alt={`Foto de ${authorUsername}`}
-              size="48px"
-            />
-          )}
-          <span>{authorUsername}</span>
-        </header>
         <div
           className="content-item"
           dangerouslySetInnerHTML={{ __html: content }}
