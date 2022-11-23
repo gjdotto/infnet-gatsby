@@ -35,10 +35,7 @@ export const pageQuery = graphql`
       role
       username
     }
-    allMarkdownRemark(
-      limit: 9
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+    allMarkdownRemark(limit: 9, sort: {frontmatter: {date: DESC}}) {
       pageInfo {
         totalCount
         currentPage
@@ -49,21 +46,6 @@ export const pageQuery = graphql`
       nodes {
         fields {
           slug
-        }
-        frontmatter {
-          author
-          date
-          title
-          image {
-            childImageSharp {
-              gatsbyImageData(
-                formats: [WEBP, JPG]
-                width: 200
-                height: 200
-                layout: CONSTRAINED
-              )
-            }
-          }
         }
       }
     }

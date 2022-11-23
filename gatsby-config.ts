@@ -18,7 +18,6 @@ const config: GatsbyConfig = {
   pathPrefix,
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-styled-jsx",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -52,12 +51,15 @@ const config: GatsbyConfig = {
         crossOrigin: `use-credentials`,
       },
     },
+    "styled-jsx/babel",
     "gatsby-transformer-remark",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-robots-txt",
+    "gatsby-plugin-styled-jsx",
+    "gatsby-plugin-styled-components"
   ],
 };
 

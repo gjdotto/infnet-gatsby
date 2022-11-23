@@ -55,10 +55,6 @@ export function MenuBar() {
             .wetravel-logo {
               margin-right: 8px;
             }
-
-            .search-bar {
-              flex: 1;
-            }
           }
 
           @media (min-width: 600px) {

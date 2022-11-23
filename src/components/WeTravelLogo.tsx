@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/wetravel.png";
+import logo from "../images/wetravel.png"
 
 export type WetravelLogoProps = {
   width?: string | number;

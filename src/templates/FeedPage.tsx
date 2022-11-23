@@ -43,11 +43,7 @@ export default function FeedPage({ data }: PageProps) {
 
 export const pageQuery = graphql`
   query PagePosts($skip: Int!) {
-    allMarkdownRemark(
-      limit: 6
-      skip: $skip
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+    allMarkdownRemark(limit: 6, skip: $skip, sort: {frontmatter: {date: DESC}}) {
       pageInfo {
         currentPage
         pageCount

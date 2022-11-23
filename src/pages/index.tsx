@@ -43,10 +43,7 @@ export const pageQuery = graphql`
       role
       username
     }
-    allMarkdownRemark(
-      limit: 6
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+    allMarkdownRemark(limit: 6, sort: {fields: frontmatter___date, order: DESC}) {
       pageInfo {
         totalCount
         currentPage
