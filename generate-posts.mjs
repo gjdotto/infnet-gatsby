@@ -10,7 +10,7 @@ const https = request.https;
 
 function getRandomImage() {
   const getSize = () => Math.round(Math.random() * 1000 + 800);
-  return faker.image.places(getSize(), getSize());
+  return faker.image.city(getSize(), getSize());
 }
 
 const markdownLookupTypes = {
@@ -47,7 +47,7 @@ function generateMarkdown(lines = 10) {
   }).join("\n");
 }
 
-async function gerarDestino() {
+async function generatePost() {
   const title = faker.lorem.sentence();
   const slug = slugify(title, {
     strict: true,
@@ -61,8 +61,8 @@ async function gerarDestino() {
   })
     .toLowerCase()
     .concat(".jpg");
-  const postPath = path.join("destinos", slug);
-  const authorImageUrl = faker.internet.perfil();
+  const postPath = path.join("posts", slug);
+  const authorImageUrl = faker.internet.avatar();
   const authorImageFileName = slugify(author, {
     strict: true,
   }).concat(".jpg");
@@ -97,12 +97,12 @@ async function downloadImage(url, imagePath) {
   });
 }
 
-(async function gerarDestinos() {
+(async function generatePosts() {
   console.log("Starting process...");
-  shell.rm("-rf", "destinos");
-  shell.mkdir("destinos");
+  shell.rm("-rf", "posts");
+  shell.mkdir("posts");
   const amount = 100;
-  await Promise.all(Array.from({ length: amount }, () => gerarDestino()));
+  await Promise.all(Array.from({ length: amount }, () => generatePost()));
 
   console.log("Success!");
 })();

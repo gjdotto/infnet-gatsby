@@ -2,7 +2,7 @@ import React from "react";
 import { graphql, PageProps, HeadProps } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import { Layout } from "../../layout/Layout";
-import { Destinos } from "../../components/Postagens";
+import { PostView } from "../../components/PostView";
 import { MetaHead } from "../../components/MetaHead";
 
 export default function Post({ data }: PageProps) {
@@ -13,7 +13,9 @@ export default function Post({ data }: PageProps) {
   return (
     <Layout>
       <article className="post-page">
-        <Destinos
+        <PostView
+          authorAvatar={getImage(authorImage.childImageSharp)}
+          authorUsername={author}
           content={html}
           image={getImage(image.childImageSharp)}
           publishDate={new Date(date)}
@@ -29,20 +31,31 @@ export default function Post({ data }: PageProps) {
 }
 
 export const pageQuery = graphql`
-  query Posts($id: String!) {
+  query GetPostBySlug($id: String!) {
     markdownRemark(id: { eq: $id }) {
       fields {
         slug
       }
       html
       frontmatter {
+        author
         date
         title
         image {
           childImageSharp {
             gatsbyImageData(
-              width: 650
-              height: 600
+              width: 800
+              height: 800
+              layout: CONSTRAINED
+              formats: [WEBP, JPG]
+            )
+          }
+        }
+        authorImage {
+          childImageSharp {
+            gatsbyImageData(
+              height: 64
+              width: 64
               layout: CONSTRAINED
               formats: [WEBP, JPG]
             )

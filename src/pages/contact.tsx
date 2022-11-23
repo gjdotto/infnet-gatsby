@@ -24,7 +24,6 @@ export default function Contact({ data }: PageProps) {
     </Layout>
   );
 }
-
 export const pageQuery = graphql`
   {
     json {
@@ -35,7 +34,7 @@ export const pageQuery = graphql`
       role
       username
     }
-    allMarkdownRemark(limit: 9, sort: {frontmatter: {date: DESC}}) {
+    allMarkdownRemark(limit: 6, sort: {fields: frontmatter___date, order: DESC}) {
       pageInfo {
         totalCount
         currentPage
@@ -46,6 +45,21 @@ export const pageQuery = graphql`
       nodes {
         fields {
           slug
+        }
+        frontmatter {
+          author  
+          date
+          title
+          image {
+            childImageSharp {
+              gatsbyImageData(
+                formats: [WEBP, JPG]
+                width: 150
+                height: 150
+                layout: CONSTRAINED
+              )
+            }
+          }
         }
       }
     }

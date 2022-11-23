@@ -6,6 +6,8 @@ dotenv.config();
 const title = "We Travel";
 const pathPrefix = "/infnet-gatsby";
 
+
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title,
@@ -15,9 +17,9 @@ const config: GatsbyConfig = {
     siteUrl: `https://gjdotto.github.io`,
     pathPrefix,
   },
-  pathPrefix,
   graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-styled-jsx",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -36,7 +38,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-transformer-json`,
       options: {
         typeName: `Json`,
-      },
+      }, 
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -51,15 +53,12 @@ const config: GatsbyConfig = {
         crossOrigin: `use-credentials`,
       },
     },
-    "styled-jsx/babel",
     "gatsby-transformer-remark",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-robots-txt",
-    "gatsby-plugin-styled-jsx",
-    "gatsby-plugin-styled-components"
   ],
 };
 

@@ -21,16 +21,16 @@ export const createPages: GatsbyNode["createPages"] = async ({
     return;
   }
 
-  const destinosCount = result.data.allMarkdownRemark.totalCount;
-  const destinosPerPage = 9;
-  const numPages = Math.ceil(destinosCount / destinosPerPage);
+  const postsCount = result.data.allMarkdownRemark.totalCount;
+  const postsPerPage = 15;
+  const numPages = Math.ceil(postsCount / postsPerPage);
   for (let index = 0; index < numPages; index++) {
     createPage({
       path: `/pages/${index + 1}`,
       component: path.resolve("./src/templates/FeedPage.tsx"),
       context: {
-        limit: destinosPerPage,
-        skip: index * destinosPerPage,
+        limit: postsPerPage,
+        skip: index * postsPerPage,
       },
     });
   }

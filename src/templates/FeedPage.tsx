@@ -24,11 +24,7 @@ export default function FeedPage({ data }: PageProps) {
         <Feed items={items} pagination={pagination} />
         <style jsx>{`
           .page {
-            margin-top: 1.5em;
-          }
-          .title {
-            color: #176c9f;
-            padding-bottom: 10px;
+            margin-top: 1em;
           }
           @media (min-width: 960px) {
             .page {
@@ -42,8 +38,12 @@ export default function FeedPage({ data }: PageProps) {
 }
 
 export const pageQuery = graphql`
-  query PagePosts($skip: Int!) {
-    allMarkdownRemark(limit: 6, skip: $skip, sort: {frontmatter: {date: DESC}}) {
+  query GetPagePosts($skip: Int!, $limit: Int!) {
+    allMarkdownRemark(
+      limit: $limit
+      skip: $skip
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       pageInfo {
         currentPage
         pageCount
@@ -58,8 +58,8 @@ export const pageQuery = graphql`
           image {
             childImageSharp {
               gatsbyImageData(
-                width: 150
-                height: 150
+                width: 200
+                height: 200
                 layout: CONSTRAINED
                 formats: [JPG, WEBP]
               )
